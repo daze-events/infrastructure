@@ -1,0 +1,62 @@
+repos:
+  # - repo: https://github.com/gruntwork-io/pre-commit
+  #   rev: v0.1.17
+  #   hooks:
+  #     - id: terragrunt-hclfmt
+
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.64.0
+    hooks:
+      - id: checkov
+      - id: terraform_fmt
+      - id: terraform_validate
+      - id: terraform_tflint
+      - id: terraform_docs
+      # - id: terraform_tfsec
+      - id: terraform_providers_lock
+      - id: terragrunt_fmt
+      - id: terragrunt_validate
+      - id: terrascan
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-ast
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-vcs-permalinks
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-byte-order-marker
+      - id: pretty-format-json
+      - id: debug-statements
+      - id: detect-aws-credentials
+        args:
+          - --allow-missing-credentials
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: name-tests-test
+      - id: forbid-new-submodules
+      - id: trailing-whitespace
+        args:
+          - --markdown-linebreak-ext=md,mkd,mkdn,markdown
+      - id: fix-encoding-pragma
+        args: [--remove]
+
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.17.0
+    hooks:
+      - id: gitlint
+
+  - repo: https://github.com/dannysepler/rm_unneeded_f_str
+    rev: v0.1.0
+    hooks:
+      - id: rm-unneeded-f-str
