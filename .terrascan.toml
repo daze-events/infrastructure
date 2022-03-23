@@ -1,1 +1,3 @@
 # https://runterrascan.io/docs/usage/config_options/
+[severity]
+level = "medium"
