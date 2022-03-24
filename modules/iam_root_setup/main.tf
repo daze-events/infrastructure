@@ -17,13 +17,3 @@ module "iam_account" {
   require_symbols              = var.require_symbols
   require_uppercase_characters = var.require_uppercase_characters
 }
-
-module "iam_policy" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
-  version = "~> 4"
-
-  name        = "BlockMostAccessUnlessSignedInWithMFA"
-  path        = "/"
-  description = "Enforces MFA on IAM Users."
-  policy      = file("mfa_policy.json") # https://aws.amazon.com/premiumsupport/knowledge-center/mfa-iam-user-aws-cli/
-}

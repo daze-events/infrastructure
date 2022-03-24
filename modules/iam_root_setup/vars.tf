@@ -1,7 +1,3 @@
-#################################
-#          iam_account          #
-#################################
-
 variable "account_alias" {
   description = <<EOF
   "AWS IAM account alias for this account."
