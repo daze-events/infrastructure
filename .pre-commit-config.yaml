@@ -15,7 +15,6 @@ repos:
       # - id: terraform_tfsec
       - id: terraform_providers_lock
       - id: terragrunt_fmt
-      - id: terragrunt_validate
       - id: terrascan
         args:
           - --args=-c .terrascan.toml
