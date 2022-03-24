@@ -10,7 +10,12 @@ locals {
   company_name  = local.account_vars.locals.company_name
   aws_region    = local.region_vars.locals.aws_region
 
-  bucket_name = join("-", [local.company_name, "state", local.account_name, local.aws_region])
+  bucket_name = join("-", [
+    local.company_name,
+    "state",
+    local.account_name,
+    local.aws_region
+  ])
 
 }
 
@@ -33,10 +38,11 @@ remote_state {
   }
 
   config = {
-    bucket  = local.bucket_name
-    key     = "${path_relative_to_include()}/terraform.tfstate"
-    region  = local.aws_region
-    encrypt = true
+    bucket         = local.bucket_name
+    key            = "${path_relative_to_include()}/terraform.tfstate"
+    region         = local.aws_region
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock-dynamo"
   }
 }
 
