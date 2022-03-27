@@ -15,6 +15,7 @@
         "iam:EnableMFADevice",
         "iam:ResyncMFADevice",
         "iam:ListAccountAliases",
+        "iam:Get*",
         "iam:ListUsers",
         "iam:ListSSHPublicKeys",
         "iam:ListAccessKeys",
@@ -22,6 +23,7 @@
         "iam:ListMFADevices",
         "iam:GetAccountSummary",
         "sts:GetSessionToken",
+        "sts:GetFederationToken",
         "iam:ChangePassword"
       ],
       "Resource": "*",
