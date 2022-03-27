@@ -1,5 +1,5 @@
 terraform {
-  source = "../../../../../modules//iam_user"
+  source = "../../../../../../modules//iam/user"
 }
 
 include "root" {

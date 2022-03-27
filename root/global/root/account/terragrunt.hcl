@@ -1,5 +1,5 @@
 terraform {
-  source = "../../../../modules//iam_root_setup"
+  source = "../../../../modules//iam/account"
 }
 
 include "root" {
