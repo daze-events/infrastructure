@@ -1,0 +1,35 @@
+{
+  "dev": {
+    "deploy_order": 0,
+    "id": "844769057455",
+    "root_user_email": "daze.events.manager+dev@gmail.com"
+  },
+  "logs": {
+    "deploy_order": 0,
+    "id": "536049262542",
+    "root_user_email": "daze.events.manager+logs@gmail.com"
+  },
+  "prod": {
+    "deploy_order": 0,
+    "id": "467082180379",
+    "root_user_email": "daze.events.manager+prod@gmail.com"
+  },
+  "root": {
+    "id": "882619786563"
+  },
+  "security": {
+    "deploy_order": 0,
+    "id": "066948109354",
+    "root_user_email": "daze.events.manager+security@gmail.com"
+  },
+  "shared": {
+    "deploy_order": 0,
+    "id": "169567906943",
+    "root_user_email": "daze.events.manager+shared@gmail.com"
+  },
+  "stage": {
+    "deploy_order": 0,
+    "id": "760773158650",
+    "root_user_email": "daze.events.manager+stage@gmail.com"
+  }
+}
