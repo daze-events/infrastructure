@@ -34,7 +34,7 @@ locals {
 
   config_opt_in_regions              = local.opt_in_regions
   ebs_opt_in_regions                 = local.opt_in_regions
-  guardduty_opt_in_regions           = local.opt_in_regions
+  guardduty_opt_in_regions           = []
   iam_access_analyzer_opt_in_regions = local.opt_in_regions
   kms_cmk_opt_in_regions             = local.opt_in_regions
 }
