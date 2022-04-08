@@ -204,11 +204,8 @@ inputs = {
     "iacopo.antonelli" = {
       groups = [
         "iam-user-self-mgmt",
-        "_account.dev-dev",
-        "_account.stage-dev",
-        "_account.prod-dev",
-        "_account.logs-read-only",
-        "_account.shared-read-only",
+        "full-access",
+        "_all-accounts",
       ]
       pgp_key              = "keybase:iacopo_antonelli"
       create_login_profile = true
