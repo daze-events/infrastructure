@@ -4,7 +4,6 @@ repos:
     hooks:
       - id: checkov
       - id: terraform_fmt
-      - id: terraform_validate
       - id: terraform_tflint
       - id: terraform_docs
       - id: terragrunt_fmt
