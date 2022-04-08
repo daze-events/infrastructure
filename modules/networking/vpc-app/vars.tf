@@ -3,7 +3,10 @@
 # These variables are expected to be passed in by the operator when calling this
 # terraform module.
 # ----------------------------------------------------------------------------------------------------------------------
-
+variable "aws_account_id" {
+  description = "The AWS Account ID to deploy the resources into."
+  type        = string
+}
 variable "aws_region" {
   description = "The AWS Region where this VPC will exist."
   type        = string

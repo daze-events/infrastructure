@@ -83,9 +83,16 @@ module "vpc_network_acls" {
   vpc_ready   = module.vpc.vpc_ready
   num_subnets = module.vpc.num_availability_zones
 
-  public_subnet_ids  = module.vpc.public_subnet_ids
-  private_subnet_ids = module.vpc.private_subnet_ids
+  create_private_app_subnet_nacls         = var.create_private_app_subnets
+  create_private_persistence_subnet_nacls = var.create_private_persistence_subnets
 
-  public_subnet_cidr_blocks  = module.vpc.public_subnet_cidr_blocks
-  private_subnet_cidr_blocks = module.vpc.private_subnet_cidr_blocks
+  public_subnet_ids         = module.vpc.public_subnet_ids
+  public_subnet_cidr_blocks = module.vpc.public_subnet_cidr_blocks
+
+  private_app_subnet_ids         = module.vpc.private_app_subnet_ids
+  private_app_subnet_cidr_blocks = module.vpc.private_app_subnet_cidr_blocks
+
+  private_persistence_subnet_ids         = module.vpc.private_persistence_subnet_ids
+  private_persistence_subnet_cidr_blocks = module.vpc.private_persistence_subnet_cidr_blocks
+
 }
