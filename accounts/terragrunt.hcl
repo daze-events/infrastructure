@@ -21,6 +21,8 @@ locals {
   # Automatically load region-level variables
   region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
 
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+
   # Automatically load supported-regions variables
   supported_regions_vars = read_terragrunt_config(find_in_parent_folders("supported_regions.hcl"))
 
