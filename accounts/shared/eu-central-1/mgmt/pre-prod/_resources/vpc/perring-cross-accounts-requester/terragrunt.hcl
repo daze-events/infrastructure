@@ -1,6 +1,5 @@
 terraform {
-  # source = "git::git@github.com:daze-events/infrastructure.git//modules/networking/vpc-peering-cross-accounts-requester?ref=v0.2.4"
-  source = "../../../../../../../..//modules/networking/vpc-peering-cross-accounts-requester"
+  source = "git::git@github.com:daze-events/infrastructure.git//modules/networking/vpc-peering-cross-accounts-requester?ref=v0.4.0"
 }
 
 include {

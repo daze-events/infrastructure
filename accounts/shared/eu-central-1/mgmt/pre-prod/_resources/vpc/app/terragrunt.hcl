@@ -1,6 +1,5 @@
 terraform {
   source = "git::git@github.com:daze-events/infrastructure.git//modules/networking/vpc-app?ref=v0.2.4"
-  # source = "../../../../../../modules//networking/vpc-app"
 }
 
 locals {
