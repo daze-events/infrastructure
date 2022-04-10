@@ -1,0 +1,35 @@
+---
+- name: Updating system...
+  become: true
+  apt:
+    upgrade: full
+    update_cache: true
+
+- name: Installing development packages...
+  apt:
+    name:
+      - acl # needed otherwise the playbook breaks ¯\_(ツ)_/¯
+      - git
+      - tig
+      - jq
+      - curl
+      - wget
+      - tmux
+      - htop
+      - tree
+      - zip
+      - unzip
+      - gzip
+      - httpie
+      - hub
+
+- name: Execute omz shell installation script
+  shell:
+    chdir: /tmp
+    cmd: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+- name: Install zsh-plugins
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "~{{ target_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    version: master

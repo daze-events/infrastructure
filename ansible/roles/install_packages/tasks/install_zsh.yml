@@ -1,0 +1,18 @@
+- name: Installing development packages...
+  become: true
+  apt:
+    name:
+      - zsh
+      - zsh-syntax-highlighting
+
+- name: Execute shell installation script
+  shell:
+    chdir: /tmp
+    cmd: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: not omz.stat.exists
+
+- name: Install zsh-plugins
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "~{{ target_user }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    version: master

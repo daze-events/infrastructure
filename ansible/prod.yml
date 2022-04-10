@@ -1,0 +1,5 @@
+---
+- name: Production setup
+  hosts: default
+  roles:
+    - install_packages
