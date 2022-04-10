@@ -1,9 +1,0 @@
----
-- name: Example playbook
-  hosts: default
-  tasks:
-    - name: Updates system
-      become: true
-      apt:
-        upgrade: full
-        update_cache: true
