@@ -1,5 +1,5 @@
 # Ansible vars
-ansible_target_user = "daze"
+ansible_debug = true
 
 # Packer vars
 ami_target_name = "main"

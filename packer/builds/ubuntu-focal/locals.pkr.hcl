@@ -11,4 +11,6 @@ locals {
     var.ami_description,
     var.ami_source_release
   )
+  ansible_debug      = var.ansible_debug ? [for index in range(var.ansible_debug_level) : "-v"] : [""]
+
 }

@@ -3,6 +3,18 @@ variable "env" {
   description = "Specifies which environment the AMI will be built for."
 }
 
+variable "ansible_debug" {
+  description = ""
+  type        = bool
+  default     = false
+}
+
+variable "ansible_debug_level" {
+  description = ""
+  type        = number
+  default     = 2
+}
+
 variable "ansible_target_user" {
   description = <<EOF
   "
