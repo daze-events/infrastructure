@@ -1,5 +1,6 @@
-- name: Installing development packages...
+- name: Installing zsh packages...
   become: true
+  become_user: root
   apt:
     name:
       - zsh
@@ -9,7 +10,6 @@
   shell:
     chdir: /tmp
     cmd: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  when: not omz.stat.exists
 
 - name: Install zsh-plugins
   git:
