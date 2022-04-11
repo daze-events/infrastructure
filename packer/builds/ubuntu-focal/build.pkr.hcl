@@ -5,10 +5,7 @@ build {
   ]
 
   provisioner "ansible" {
-    playbook_file = "../ansible/${var.env}.yml"
-    extra_arguments = [
-      "-e",
-      "target_user=${var.ansible_target_user}",
-    ]
+    playbook_file   = "../ansible/${var.env}.yml"
+    extra_arguments = local.ansible_extra_arguments
   }
 }

@@ -3,6 +3,17 @@ variable "env" {
   description = "Specifies which environment the AMI will be built for."
 }
 
+# variable "ansible_target_user" {
+#   description = <<EOF
+#   "
+#   The user to setup when provisioning the instance.
+#   It should be different from the default AMI user for security reasons.
+#   If the user does not exist, it will be created and added to the sudoers group.
+#   "
+#   EOF
+#   type        = string
+# }
+
 variable "ansible_debug" {
   description = ""
   type        = bool
@@ -15,15 +26,10 @@ variable "ansible_debug_level" {
   default     = 2
 }
 
-variable "ansible_target_user" {
-  description = <<EOF
-  "
-  The user to setup when provisioning the instance.
-  It should be different from the default AMI user for security reasons.
-  If the user does not exist, it will be created and added to the sudoers group.
-  "
-  EOF
-  type        = string
+variable "ansible_extra_vars" {
+  type        = map(string)
+  description = ""
+  default     = {}
 }
 
 variable "ami_source_release" {
@@ -94,5 +100,11 @@ variable "additional_account_ids" {
   "
   EOF
   type        = list(string)
-  default     = []
+  default     = [""]
+}
+
+variable "tags" {
+  type        = map(string)
+  description = ""
+  default     = {}
 }

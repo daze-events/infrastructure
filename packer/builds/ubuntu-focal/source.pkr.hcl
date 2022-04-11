@@ -38,4 +38,10 @@ source "amazon-ebs" "ubuntu" {
   skip_create_ami             = !var.create_ami
 
   ssh_username = "ubuntu"
+
+  tags = merge({
+    Environment = var.env
+    Source_AMI = var.ami_source_release },
+    var.tags
+  )
 }
