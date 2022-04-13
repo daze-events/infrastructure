@@ -16,10 +16,15 @@ source "amazon-ebs" "ubuntu" {
 
   ami_users = var.additional_account_ids
 
+  force_deregister = true # Used in dev environment to easily overwrite a previous image
+
+  encrypt_boot = true
+  kms_key_id   = "f6d5d186-c207-45b2-9979-2d3e643594ab"
+
   # VPC Filter
   vpc_filter {
     filters = {
-      "tag:Name" : "dev-core*",
+      "tag:Name" : "shared-build*",
       "isDefault" : "false",
     }
   }
@@ -27,7 +32,7 @@ source "amazon-ebs" "ubuntu" {
   # Subnet filter
   subnet_filter {
     filters = {
-      "tag:Name" : "dev-core-public-*"
+      "tag:Name" : "*public*"
     }
     most_free = true
     random    = true
@@ -37,7 +42,11 @@ source "amazon-ebs" "ubuntu" {
   shutdown_behavior           = "terminate"
   skip_create_ami             = !var.create_ami
 
-  ssh_username = "ubuntu"
+  user_data = templatefile("./files/userdata.tpl", { ansible_ssh_user = var.ansible_ssh_user })
+
+  ssh_username         = "ansible"
+  ssh_keypair_name     = "shared-build-packer"
+  ssh_private_key_file = pathexpand("~/.ssh/id_rsa")
 
   tags = merge({
     Environment = var.env

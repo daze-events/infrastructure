@@ -5,13 +5,11 @@ build {
   ]
 
   provisioner "ansible" {
-    playbook_file   = "../ansible/${var.env}.yml"
-    extra_arguments = local.ansible_extra_arguments
-  }
-
-  post-processor "manifest" {
-    output     = "manifest.json"
-    strip_path = true
-    strip_time = true
+    playbook_file = "../ansible/${var.env}.yml"
+    extra_arguments = compact(concat([
+      "-e", "target_user=${jsonencode(var.ansible_target_user)}",
+      "-e", "ssh_public_keys=${jsonencode(var.ssh_public_keys)}",
+      "-u", "${var.ansible_ssh_user}",
+    ], local.ansible_debug))
   }
 }

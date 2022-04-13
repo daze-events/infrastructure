@@ -28,6 +28,16 @@ variable "ansible_target_user" {
   type        = string
 }
 
+variable "ansible_default_user" {
+  description = <<EOF
+  "
+
+  "
+  EOF
+  type        = string
+  default     = "ubuntu"
+}
+
 variable "ansible_debug" {
   description = <<EOF
   "
@@ -55,6 +65,16 @@ variable "ansible_extra_vars" {
   "
   EOF
   default     = {}
+}
+
+variable "ansible_ssh_user" {
+  description = <<EOF
+  "
+
+  "
+  EOF
+  type        = string
+  default     = "ansible"
 }
 
 variable "ami_source_release" {
