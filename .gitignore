@@ -33,3 +33,6 @@ override.tf.json
 
 # VSCode files
 .vscode
+
+# Packer files
+manifest.json
