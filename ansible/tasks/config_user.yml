@@ -1,0 +1,27 @@
+---
+- name: 'Makes sure user "{{ target_user }}" exists'
+  user:
+    name: "{{ target_user }}"
+    groups: sudo
+    append: true
+    comment: Daze User
+    shell: "/usr/bin/zsh"
+
+- name: 'Creates user "{{ target_user }}" home directories'
+  file:
+    path: "~{{ target_user }}/{{ item }}"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    state: directory
+    mode: 0755
+  loop:
+    - ".local/bin"
+
+- name: Creating sudoer file in /etc/sudoers.d/
+  copy:
+    dest: "/etc/sudoers.d/{{ target_user }}"
+    content: "{{ target_user }} ALL=(ALL) NOPASSWD: ALL"
+    owner: root
+    group: root
+    validate: "visudo -cf %s"
+    mode: 0640

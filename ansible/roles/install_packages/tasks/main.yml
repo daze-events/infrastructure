@@ -4,15 +4,6 @@
     - include_tasks: install_system_packages.yml
 
 - become: true
-  block:
-    - include_tasks: config_user.yml
-
-- become: true
-  become_user: "{{ target_user }}"
-  block:
-    - include_tasks: install_ssh_keys.yml
-
-- become: true
   become_user: "{{ target_user }}"
   block:
     - include_tasks: install_zsh.yml
