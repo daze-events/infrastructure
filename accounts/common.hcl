@@ -70,8 +70,9 @@ locals {
 
   mgmt_vpc_cidrs = {
 
-    preprod = "100.0.0.0/16"
-    prod    = "100.2.0.0/16"
+    preprod      = "100.0.0.0/16"
+    prod         = "100.2.0.0/16"
+    build_packer = "100.10.0.0/16"
   }
 
   # List of known static CIDR blocks for the organization. Administrative access (e.g., VPN, SSH,

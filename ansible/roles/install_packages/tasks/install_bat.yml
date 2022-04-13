@@ -1,0 +1,10 @@
+---
+- name: Installing batcat...
+  apt:
+    name: bat
+
+- name: Creating symlink for batcat...
+  file:
+    state: link
+    src: "/usr/bin/batcat"
+    path: "~{{ target_user }}/.local/bin/bat"

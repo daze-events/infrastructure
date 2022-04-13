@@ -1,0 +1,31 @@
+---
+- name: Add GPG key for Docker
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    keyring: /etc/apt/trusted.gpg.d/docker-archive-keyring.gpg
+
+- name: Adding Docker repository
+  apt_repository:
+    update_cache: true
+    repo: >
+      deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/docker-archive-keyring.gpg]
+      https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    filename: docker
+
+- name: Installs Docker packages
+  apt:
+    package:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose
+
+- name: Creating a docker group...
+  group:
+    name: docker
+
+- name: Adding user to docker group...
+  user:
+    append: yes
+    name: "{{ target_user }}"
+    groups: docker

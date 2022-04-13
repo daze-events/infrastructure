@@ -1,0 +1,23 @@
+---
+# This playbook should be the single entry point for executing
+# Ansible configuration tasks for a development server.
+
+# More specific configuration (e.g. setting up a web server vs. databse server or
+# deploying a business application) is not yet possible with this approach. Either it will be
+# introduces in the future or another mechanism should be developed.
+- name: Development setup
+  hosts: default
+  pre_tasks:
+    - include_tasks: tasks/config_user.yml
+      args:
+        apply:
+          become: true
+
+    - include_tasks: tasks/install_ssh_keys.yml
+      args:
+        apply:
+          become: true
+          become_user: "{{ target_user }}"
+
+  roles:
+    - role: install_packages

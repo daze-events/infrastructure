@@ -1,0 +1,24 @@
+---
+- name: Updating system...
+  become: true
+  apt:
+    upgrade: full
+    update_cache: true
+
+- name: Installing development packages...
+  apt:
+    name:
+      - acl # needed otherwise the playbook breaks ¯\_(ツ)_/¯
+      - git
+      - tig
+      - jq
+      - curl
+      - wget
+      - tmux
+      - htop
+      - tree
+      - zip
+      - unzip
+      - gzip
+      - httpie
+      - hub

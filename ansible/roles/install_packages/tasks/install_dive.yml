@@ -1,0 +1,22 @@
+---
+- name: Getting latest dive release version...
+  uri:
+    url: https://api.github.com/repos/wagoodman/dive/releases/latest
+    body_format: json
+    return_content: true
+  register: dive_version
+
+- name: Deriving file name
+  set_fact:
+    dive_package: "dive_{{ dive_version['json'].tag_name[1:] }}_linux_amd64.tar.gz" # dive_0.10.0_linux_amd64.tar.gz
+
+- name: Downloading dive...
+  unarchive:
+    creates: "~{{ target_user }}/.local/bin/dive"
+    remote_src: true
+    src: "https://github.com/wagoodman/dive/releases/latest/download/{{ dive_package }}"
+    include: ["dive"]
+    dest: "~{{ target_user }}/.local/bin/"
+    owner: "{{ target_user }}"
+    group: "{{ target_user }}"
+    mode: "0755"

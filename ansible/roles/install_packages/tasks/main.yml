@@ -1,0 +1,22 @@
+---
+- become: true
+  block:
+    - include_tasks: install_system_packages.yml
+
+- become: true
+  become_user: "{{ target_user }}"
+  block:
+    - include_tasks: install_zsh.yml
+
+- become: true
+  block:
+    - include_tasks: install_bat.yml
+
+- become: true
+  become_user: "{{ target_user }}"
+  block:
+    - include_tasks: install_dive.yml
+
+- become: true
+  block:
+    - include_tasks: install_docker.yml

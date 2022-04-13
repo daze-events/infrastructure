@@ -21,7 +21,7 @@ include {
 
 inputs = {
   vpc_name                           = "${local.account_name}-${local.environment}-${local.function}"
-  cidr_block                         = "${local.mgmt_vpc_cidrs.preprod}"
+  cidr_block                         = "${local.mgmt_vpc_cidrs.build_packer}"
   num_nat_gateways                   = 0
   num_availability_zones             = 2
   map_public_ip_on_launch            = true
