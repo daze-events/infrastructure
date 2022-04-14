@@ -1,6 +1,5 @@
 terraform {
-  # source = "git::git@github.com:daze-events/infrastructure.git//modules/networking/vpc-app?ref=v0.2.4"
-  source = "${get_path_to_repo_root()}//modules/kms/master-key"
+  source = "git::git@github.com:daze-events/infrastructure.git//modules/kms/master-key?ref=v0.5.0"
 }
 
 locals {

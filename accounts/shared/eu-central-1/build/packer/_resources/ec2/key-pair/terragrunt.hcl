@@ -1,6 +1,5 @@
 terraform {
-  # source = ""
-  source = "${get_path_to_repo_root()}//modules/ec2/key-pair"
+  source = "git::git@github.com:daze-events/infrastructure.git//modules/ec2/key-pair?ref=v0.5.0"
 }
 
 include {
