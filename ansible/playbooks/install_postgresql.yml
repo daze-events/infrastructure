@@ -1,0 +1,26 @@
+---
+- name: Installs and configures PostgreSQL
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  tasks:
+    - name: Installing system packages...
+      become: true
+      apt:
+        update_cache: true
+        name:
+          - postgresql
+          - postgresql-server
+      notify: psql_version
+
+    - name: Enabling service...
+      become: true
+      service:
+        name: postgresql
+        enabled: true
+
+  handlers:
+    - name: Printing version...
+      listen: psql_version
+      command: postgres --version
+      changed_when: false
