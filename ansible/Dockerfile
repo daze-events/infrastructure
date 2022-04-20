@@ -9,6 +9,12 @@ RUN apt-get install -y openssh-server ansible
 # Install dev packages
 RUN apt-get install -y jq vim less
 
+# Install aws-cli
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
+    unzip "/tmp/awscliv2.zip" && \
+    /tmp/aws/install && \
+    rm -rf "/tmp/aws*"
+
 # Install SOPS
 RUN curl -qsL "https://github.com/mozilla/sops/releases/download/v3.7.2/sops_3.7.2_amd64.deb" -o /tmp/sops.deb
 RUN dpkg -i /tmp/sops.deb
@@ -16,4 +22,4 @@ RUN dpkg -i /tmp/sops.deb
 # Copy playbooks over into the container
 COPY . /etc/ansible/
 
-CMD [ "/etc/ansible/entrypoint.sh" ]
+ENTRYPOINT [ "/etc/ansible/entrypoint.sh" ]
