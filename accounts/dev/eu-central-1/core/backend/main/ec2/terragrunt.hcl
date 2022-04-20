@@ -30,12 +30,15 @@ dependency "kms" {
 }
 
 inputs = {
-  name                    = "${local.account_name}-${local.environment}-${local.function}-${local.role}"
-  ami_search              = true
-  ami_owner_account_id    = "${local.shared_account_id}"
-  ami_filter_name         = "dz-dev-ubuntu*"
-  instance_type           = "t3a.micro"
-  vpc_id                  = dependency.vpc.outputs.vpc_id
-  subnet_id               = dependency.vpc.outputs.public_subnet_ids[0]
-  additional_iam_policies = [dependency.kms.outputs.cmk_decrypt_policy_json]
+  name                 = "${local.account_name}-${local.environment}-${local.function}-${local.role}"
+  ami_search           = true
+  ami_owner_account_id = "${local.shared_account_id}"
+  ami_filter_name      = "dz-dev-ubuntu*"
+  instance_type        = "t3a.micro"
+  vpc_id               = dependency.vpc.outputs.vpc_id
+  subnet_id            = dependency.vpc.outputs.public_subnet_ids[0]
+  additional_iam_policies = [
+    dependency.kms.outputs.cmk_decrypt_policy_json,
+    dependency.kms.outputs.cmk_encrypt_policy_json
+  ]
 }
