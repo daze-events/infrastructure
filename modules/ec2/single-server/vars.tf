@@ -296,3 +296,9 @@ variable "instance_tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "additional_iam_policies" {
+  description = "additional iam policies to attach to the role"
+  type        = list(string)
+  default     = []
+}

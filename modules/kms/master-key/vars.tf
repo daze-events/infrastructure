@@ -7,12 +7,39 @@
 # - Customer Master Key (CMK): A key used to encrypt/decrypt arbitrary data, or to generate a Data Key that can be used
 #                              to encrypt/decrypt a higher volume of arbitrary data. See this module's README for details.
 
+variable "name" {
+  description = ""
+  type        = string
+}
+
+variable "cmk_administrator_iam_arns" {
+  description = ""
+  type        = list(string)
+}
+
+variable "cmk_user_iam_arns" {
+  description = ""
+  type        = list(any)
+}
+
+variable "cmk_external_user_iam_arns" {
+  description = ""
+  type        = list(string)
+  default     = []
+}
+
+variable "allow_manage_key_permissions_with_iam" {
+  description = ""
+  type        = bool
+}
+
 variable "customer_master_keys" {
   description = "Map of CMK names to spec for managing each key. Each entry in the map corresponds to a key that will be created by this template."
   # Ideally, we will use a more strict type here but since we want to support required and optional values, and since
   # Terraform's type system only supports maps that have the same type for all values, we have to use the less useful
   # `any` type.
-  type = any
+  type    = any
+  default = {}
 
   # Each entry in the map supports the following attributes:
   #

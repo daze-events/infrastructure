@@ -3,13 +3,14 @@ terraform {
 }
 
 locals {
+  account_vars     = read_terragrunt_config(find_in_parent_folders("account.hcl"))
   common_vars      = read_terragrunt_config(find_in_parent_folders("common.hcl"))
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
 
   app_vpc_cidrs = local.common_vars.locals.app_vpc_cidrs
 
-  environment = local.environment_vars.locals.environment
-  function    = local.environment_vars.locals.function
+  account_name = local.account_vars.locals.account_name
+  environment  = local.environment_vars.locals.environment
 }
 
 include {
@@ -17,7 +18,7 @@ include {
 }
 
 inputs = {
-  vpc_name                           = "${local.environment}-${local.function}"
+  vpc_name                           = "${local.account_name}-${local.environment}"
   cidr_block                         = "${local.app_vpc_cidrs.dev}"
   num_nat_gateways                   = 0
   num_availability_zones             = 2
