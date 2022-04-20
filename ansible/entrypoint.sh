@@ -10,5 +10,5 @@ chmod 600 /etc/ansible/ssh.pem
 echo "SSH key created at /etc/ansible/ssh.pem"
 
 echo "Launching playbook"
-ansible-playbook --private-key /etc/ansible/ssh.pem /etc/ansible/playbooks/install_postgresql.yml
+ansible-playbook --private-key /etc/ansible/ssh.pem /etc/ansible/playbooks/install_postgresql.yml -v
 echo "Done!"
