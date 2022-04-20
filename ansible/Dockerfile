@@ -4,14 +4,15 @@ RUN apt-get update && \
     apt-get upgrade -y
 
 # Installs core packages
-RUN apt-get install -y openssh-server ansible
+RUN apt-get install -y openssh-server ansible && \
+    apt-get install -y --no-install-recommends apt-utils
 
 # Install dev packages
 RUN apt-get install -y jq vim less
 
 # Install aws-cli
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
-    unzip "/tmp/awscliv2.zip" && \
+    unzip "/tmp/awscliv2.zip" -d "/tmp" && \
     /tmp/aws/install && \
     rm -rf "/tmp/aws*"
 
