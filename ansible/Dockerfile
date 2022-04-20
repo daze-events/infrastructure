@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get upgrade -y
 
 # Install SSH server/client
-RUN apt-get install -y openssh-server
+RUN apt-get install -y openssh-server jq
 
 # Install Ansible
 RUN apt-get install -y ansible
