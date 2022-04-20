@@ -10,7 +10,7 @@
         update_cache: true
         name:
           - postgresql
-          - postgresql-server
+          - postgresql-contrib
       notify: psql_version
 
     - name: Enabling service...
