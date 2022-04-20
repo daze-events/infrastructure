@@ -54,3 +54,10 @@ module "single_server" {
   eip_tags                              = var.eip_tags
   instance_tags                         = var.instance_tags
 }
+
+resource "aws_iam_role_policy" "additional" {
+  count       = length(var.additional_iam_policies)
+  name_prefix = "${var.name}-additional"
+  role        = module.single_server.iam_role_id
+  policy      = element(var.additional_iam_policies, count.index)
+}

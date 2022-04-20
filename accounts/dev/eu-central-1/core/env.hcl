@@ -1,4 +1,3 @@
 locals {
-  function    = "core"
-  environment = "dev"
+  environment = "core"
 }

@@ -19,5 +19,5 @@ locals {
 
 inputs = {
   key_name   = "${local.account_name}-${local.environment}-${local.function}"
-  public_key = "${file(pathexpand("~/.ssh/id_rsa.pub"))}"
+  public_key = "${file(pathexpand("~/.ssh/ssh_daze_events.pub"))}"
 }

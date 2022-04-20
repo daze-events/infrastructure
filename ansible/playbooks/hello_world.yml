@@ -1,0 +1,7 @@
+---
+- name: Prints hello world...
+  hosts: localhost
+  tasks:
+    - name: Printing...
+      debug:
+        msg: "Hello World!"
