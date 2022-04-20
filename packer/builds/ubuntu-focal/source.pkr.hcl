@@ -46,7 +46,7 @@ source "amazon-ebs" "ubuntu" {
 
   ssh_username         = "ansible"
   ssh_keypair_name     = "shared-build-packer"
-  ssh_private_key_file = pathexpand("~/.ssh/id_rsa")
+  ssh_private_key_file = pathexpand("~/.ssh/ssh_daze_events")
 
   tags = merge({
     Environment = var.env
