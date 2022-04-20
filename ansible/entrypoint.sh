@@ -8,4 +8,5 @@ jq -r .ssh_private_key /etc/ansible/ssh.json | base64 -d > /tmp/ssh_key.temp && 
 
 echo "SSH key created at /etc/ansible/ssh.pem"
 echo "Launching playbook"
-ansible-playbook /etc/ansible/hello_world.yml
+ansible-playbook --private-key /etc/ansible/ssh.pem /etc/ansible/playbooks/install_postgres.yml
+echo "Done!"

@@ -16,7 +16,4 @@ RUN dpkg -i /tmp/sops.deb
 # Copy playbooks over into the container
 COPY . /etc/ansible/
 
-RUN mkdir -p /root/.ssh && \
-    chmod 600 /root/.ssh
-
-CMD [ "entrypoint.sh" ]
+CMD [ "/etc/ansible/entrypoint.sh" ]
