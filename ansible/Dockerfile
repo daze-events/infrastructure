@@ -18,3 +18,5 @@ COPY . /etc/ansible/
 
 RUN mkdir -p /root/.ssh && \
     chmod 600 /root/.ssh
+
+CMD [ "entrypoint.sh" ]
