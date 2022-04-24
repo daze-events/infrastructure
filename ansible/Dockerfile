@@ -7,9 +7,9 @@ RUN apt-get update && \
 RUN apt-get install -y openssh-server && \
     apt-get install -y --no-install-recommends apt-utils
 
-RUN pip3 install --upgrade pip && \
-  pip3 install --upgrade virtualenv && \
-  pip3 install ansible
+RUN pip3 install --quiet --upgrade pip && \
+  pip3 install --quiet --upgrade virtualenv && \
+  pip3 install --quiet ansible
 
 # Install dev packages
 RUN apt-get install -y jq vim less
