@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+if [[ ! -z $CI ]]; then
+    set -x
+fi
+
 ANSIBLE_DIR="/etc/ansible"
 
 if [[ -z $CI ]]; then
@@ -20,7 +24,7 @@ if [[ -z $CI ]]; then
 
 fi
 
-HOST_IP=/sbin/ip route|awk '/default/ { print $3 }'
+HOST_IP=$(/sbin/ip route|awk '/default/ { print $3 }')
 
 echo "🧾 Launching playbook"
 ansible-playbook \
