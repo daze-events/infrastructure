@@ -4,7 +4,7 @@ set -euo pipefail
 
 ANSIBLE_DIR="/etc/ansible"
 
-if [[ -n $CI ]]; then
+if [[ ! -z $CI ]]; then
 
     # Decrypt file with KMS key
     sops -d -i ${ANSIBLE_DIR}/ssh.json
