@@ -1,0 +1,21 @@
+---
+- name: Installing system packages...
+  apt:
+    update_cache: true
+    name:
+      - postgresql
+      - postgresql-contrib
+
+- name: Enabling service...
+  service:
+    name: postgresql
+    enabled: true
+
+- name: Getting version...
+  command: psql --version
+  changed_when: false
+  register: psql_version
+
+- name: Printing version
+  debug:
+    var: psql_version.stdout

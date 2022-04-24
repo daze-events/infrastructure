@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. /etc/update-motd.d/.common.sh
+
+echo ""
+echo "Daze Events" | figlet -f slant | boxes -s ${MESSAGE_WIDTH} | lolcat -p 5 -S 50 -F 0.2
+echo ""

@@ -22,3 +22,14 @@
       - gzip
       - httpie
       - hub
+      - update-motd
+      - figlet
+      - lolcat
+      - sysstat
+      - boxes
+
+- name: Creating symlinks
+  file:
+    state: link
+    src: /usr/games/lolcat
+    dest: /usr/bin/lolcat

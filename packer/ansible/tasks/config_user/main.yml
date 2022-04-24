@@ -25,3 +25,11 @@
     group: root
     validate: "visudo -cf %s"
     mode: 0640
+
+- name: Installing SSH Public keys to target user...
+  loop: "{{ ssh_public_keys }}"
+  loop_control:
+    loop_var: ssh_public_key
+  authorized_key:
+    user: "{{ target_user }}"
+    key: "{{ ssh_public_key }}"

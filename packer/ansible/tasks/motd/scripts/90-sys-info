@@ -1,0 +1,30 @@
+#!/bin/sh
+
+. /etc/update-motd.d/.common.sh
+
+# Print uptime info
+printf "${BOLD}Uptime${NORMAL}: %s\n" "$(uptime --pretty)"
+printf "${BOLD}Boot date${NORMAL}: %s\n" "$(uptime --since)"
+echo ""
+
+# Print system resource utilization
+printf "${BOLD}Load Average${NORMAL}: %s\n" "$(cat /proc/loadavg | cut -d " " -f1,2,3)"
+printf "${BOLD}Used Memory${NORMAL}: %s%%\n" "$(free | grep Mem | awk '{print $3/$2 * 100.0}')"
+echo ""
+
+# Print currently runnning containers
+printf "${BOLD}Running containers${NORMAL}: %s\n" "$(docker ps -a -f status=running --format '{{.Names}}' | wc -l)"
+printf "${BOLD}Stopped containers${NORMAL}: %s\n" "$(docker ps -a -f status=exited --format '{{.Names}}' | wc -l)"
+echo ""
+
+# Print information about Amazon
+printf "${BOLD}Public hostname${NORMAL}: %s\n" "$(curl -s ${AWS_METADATA_ENDPOINT}/public-hostname)"
+printf "${BOLD}Public IPv4${NORMAL}: %s\n" "$(curl -s ${AWS_METADATA_ENDPOINT}/public-ipv4)"
+echo ""
+
+printf "${BOLD}Private hostname${NORMAL}: %s\n" "$(curl -s ${AWS_METADATA_ENDPOINT}/hostname)"
+printf "${BOLD}Private IPv4${NORMAL}: %s\n" "$(curl -s ${AWS_METADATA_ENDPOINT}/local-ipv4)"
+echo ""
+
+printf "${BOLD}EC2 Instance ID${NORMAL}: %s\n" "$(curl -s ${AWS_METADATA_ENDPOINT}/instance-id)"
+printf "${BOLD}AMI ID${NORMAL}: %s\n" "$(curl -s ${AWS_METADATA_ENDPOINT}/ami-id)"

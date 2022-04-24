@@ -16,7 +16,16 @@ source "amazon-ebs" "ubuntu" {
 
   ami_users = var.additional_account_ids
 
-  force_deregister = true # Used in dev environment to easily overwrite a previous image
+  snapshot_tags = {
+    Name = local.ami_name
+  }
+
+  # Used in dev environment to easily overwrite a previous image
+  # If "var.create_ami = false" we don't want to deregister the
+  # latest AMI.
+  force_deregister       = var.create_ami
+  force_delete_snapshot  = var.create_ami
+  skip_save_build_region = !var.create_ami
 
   encrypt_boot = true
   kms_key_id   = "f6d5d186-c207-45b2-9979-2d3e643594ab"

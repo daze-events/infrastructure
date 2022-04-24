@@ -1,0 +1,14 @@
+---
+- name: Set playbooks to apply to all images
+  hosts: default
+  pre_tasks:
+    - include_tasks: tasks/config_user/main.yml
+      args:
+        apply:
+          become: true
+
+  tasks:
+    - include_tasks: tasks/motd/main.yml
+      args:
+        apply:
+          become: true

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+. /etc/update-motd.d/.common.sh
+
+{
+    echo "You are accessing a system owned by Daze Events Organization."
+    echo "All activities are monitored by system administrators."
+    echo "Exit immediately if you're not authorized."
+} | boxes -s ${MESSAGE_WIDTH} -p v1 -d tex-box
+echo ""

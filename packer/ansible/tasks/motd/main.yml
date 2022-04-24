@@ -1,0 +1,41 @@
+---
+- name: Checking if custom motd file is present...
+  stat:
+    path: /etc/update-motd.d/.common.sh
+  register: custom_motd
+
+- name: Removing factory motd files...
+  when: not custom_motd.stat.exists
+  block:
+    - name: Collecting files...
+      find:
+        paths: "/etc/update-motd.d/"
+        hidden: true
+        recurse: true
+        file_type: any
+      register: collected_files
+
+    - name: Collecting directories...
+      find:
+        paths: "/etc/update-motd.d/"
+        hidden: true
+        recurse: true
+        file_type: directory
+      register: collected_directories
+
+    - name: Removing collected files and directories...
+      file:
+        path: "{{ old_motd_files.path }}"
+        state: absent
+      loop: "{{ collected_files.files + collected_directories.files }}"
+      loop_control:
+        loop_var: old_motd_files
+
+- name: Installing motd files...
+  when: not custom_motd.stat.exists
+  copy:
+    dest: /etc/update-motd.d/
+    mode: 0755
+    owner: root
+    group: root
+    src: ./scripts/

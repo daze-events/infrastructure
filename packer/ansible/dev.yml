@@ -7,17 +7,10 @@
 # introduces in the future or another mechanism should be developed.
 - name: Development setup
   hosts: default
-  pre_tasks:
-    - include_tasks: tasks/config_user.yml
-      args:
-        apply:
-          become: true
-
-    - include_tasks: tasks/install_ssh_keys.yml
-      args:
-        apply:
-          become: true
-          become_user: "{{ target_user }}"
-
   roles:
     - role: install_packages
+  tasks:
+    - include_tasks: tasks/config_sshd/main.yml
+      args:
+        apply:
+          become: true

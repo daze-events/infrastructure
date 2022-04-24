@@ -1,0 +1,33 @@
+---
+- name: Adding forwarding of environment variables through SSH...
+  lineinfile:
+    line: "AcceptEnv {{ envar }}"
+    path: /etc/ssh/sshd_config
+    insertafter: "^AcceptEnv "
+  loop:
+    - GITHUB_USER
+    - GITHUB_TOKEN
+  loop_control:
+    loop_var: envar
+
+- name: Removing forwarding of environment variables through SSH...
+  lineinfile:
+    line: "AcceptEnv LANG LC_*"
+    path: /etc/ssh/sshd_config
+    state: absent
+
+- name: Allowing PrintMotd...
+  lineinfile:
+    line: "PrintMotd yes"
+    path: /etc/ssh/sshd_config
+
+- name: Deleting "PrintMotd no"...
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regex: "^.*PrintMotd no.*$"
+    state: absent
+
+- name: Restarting SSH service...
+  service:
+    name: sshd
+    state: restarted
