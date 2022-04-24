@@ -24,6 +24,6 @@ echo "🧾 Launching playbook"
 ansible-playbook \
                 --private-key ${ANSIBLE_DIR}/ssh.pem \
                 "$@" \
-                ${ANSIBLE_DIR}/playbooks/install_postgresql.yml
+                ${ANSIBLE_DIR}/main.yml
 
 echo "🔥 Done!"
