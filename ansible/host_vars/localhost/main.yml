@@ -1,3 +1,0 @@
----
-# This is the host's IP from the containers point of view
-ansible_host: 172.17.0.1
