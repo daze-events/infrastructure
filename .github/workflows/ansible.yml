@@ -27,7 +27,7 @@ jobs:
         run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
 
       - name: Installing packages...
-        run: apt install openssh-server
+        run: sudo apt install openssh-server
 
       - name: Creating temporary SSH key...
         run: |
