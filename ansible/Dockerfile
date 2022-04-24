@@ -11,7 +11,7 @@ RUN apt-get install -y openssh-server ansible && \
 RUN apt-get install -y jq vim less
 
 # Install aws-cli
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
+RUN curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
     unzip -qq "/tmp/awscliv2.zip" -d "/tmp" && \
     /tmp/aws/install && \
     rm -rf "/tmp/aws*"

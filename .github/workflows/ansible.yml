@@ -29,13 +29,6 @@ jobs:
           ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" -C "temp key"
           cat "$HOME/.ssh/id_rsa.pub" > $HOME/.ssh/authorized_keys
 
-      - name: Debugging SSH connection...
-        run: |
-          ssh -T -o StrictHostKeyChecking=no $USER@localhost -i $HOME/.ssh/id_rsa
-          cat "$HOME/.ssh/id_rsa.pub"
-          cat "$HOME/.ssh/id_rsa"
-          cat "$HOME/.ssh/authorized_keys"
-
       - name: Building docker image...
         working-directory: ./ansible
         run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
