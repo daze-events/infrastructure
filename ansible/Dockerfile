@@ -4,8 +4,12 @@ RUN apt-get update && \
     apt-get upgrade -y
 
 # Installs core packages
-RUN apt-get install -y openssh-server ansible && \
+RUN apt-get install -y openssh-server && \
     apt-get install -y --no-install-recommends apt-utils
+
+RUN pip3 install --upgrade pip && \
+  pip3 install --upgrade virtualenv && \
+  pip3 install ansible
 
 # Install dev packages
 RUN apt-get install -y jq vim less

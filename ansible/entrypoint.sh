@@ -28,7 +28,6 @@ HOST_IP=$(/sbin/ip route|awk '/default/ { print $3 }')
 
 echo "🧾 Launching playbook"
 ansible-playbook \
-                --private-key ${ANSIBLE_DIR}/ssh.pem \
                 -i "$HOST_IP", \
                 "$@" \
                 ${ANSIBLE_DIR}/main.yml

@@ -17,7 +17,7 @@ jobs:
 
       - name: Installing packages...
         run: |
-          sudo apt install openssh-server
+          sudo apt-get -qq install openssh-server -y
 
       - name: Creating temporary SSH key...
         run: |
