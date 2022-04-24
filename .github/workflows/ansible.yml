@@ -15,13 +15,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Printing envars...
-        run: printenv
-
       - name: Installing packages...
         run: |
           sudo apt install openssh-server
-          sudo systemctl start sshd
 
       - name: Creating temporary SSH key...
         run: |
