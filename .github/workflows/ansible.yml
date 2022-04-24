@@ -1,6 +1,9 @@
 ---
-name: Ansible
-on: [push]
+name: Ansible container
+on:
+  push:
+    paths:
+      - "ansible/**"
 env:
   registry: ghcr.io
   app: ansible
