@@ -1,5 +1,5 @@
 ---
-name: Ansible container
+name: Ansible codebase
 on:
   push:
     paths:
@@ -10,17 +10,43 @@ env:
 
 jobs:
   build:
+    name: Build Ansible image
     runs-on: ubuntu-20.04
     permissions:
       contents: read
-      packages: write
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      - name: Building docker image...
+        working-directory: ./ansible
+        run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
+
+      - name: Save image to tar
+        run: docker save ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev -o ansible.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ansible
+          path: ansible.tar
+
+  test:
+    name: Test Ansible playbook
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ansible
+          path: /tmp/ansible.tar
+
+      - name: Load Docker image
+        run: docker load --input /tmp/ansible.tar
+
       - name: Installing packages...
-        run: |
-          sudo apt-get -qq install openssh-server -y
+        run: sudo apt-get -qq install openssh-server -y
 
       - name: Creating temporary SSH key...
         run: |
@@ -28,12 +54,24 @@ jobs:
           ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" -C "temp key"
           cat "$HOME/.ssh/id_rsa.pub" > $HOME/.ssh/authorized_keys
 
-      - name: Building docker image...
-        working-directory: ./ansible
-        run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
-
       - name: Running Ansible container...
         run: docker run -e CI --rm -v $HOME/.ssh/id_rsa:/etc/ansible/ssh.pem ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev -u $USER -vvv
+
+  push:
+    needs: test
+    name: Push to ghcr.io
+    runs-on: ubuntu-20.04
+    permissions:
+      packages: write
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ansible
+          path: /tmp/ansible.tar
+
+      - name: Load Docker image
+        run: docker load --input /tmp/ansible.tar
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
