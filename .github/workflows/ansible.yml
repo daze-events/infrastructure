@@ -18,6 +18,9 @@ jobs:
       - name: Installing packages...
         run: sudo apt install openssh-server
 
+      - name: Printing envars...
+        run: printenv
+
       - name: Creating temporary SSH key...
         run: |
           mkdir $HOME/.ssh/
