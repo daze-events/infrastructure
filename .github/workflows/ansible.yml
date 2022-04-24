@@ -31,7 +31,7 @@ jobs:
 
       - name: Testing SSH connection...
         run: |
-          ssh -T $USER@localhost -i $HOME/.ssh/id_rsa
+          ssh -T -o StrictHostKeyChecking=no $USER@localhost -i $HOME/.ssh/id_rsa
 
       - name: Building docker image...
         working-directory: ./ansible
