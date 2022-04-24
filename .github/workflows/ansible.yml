@@ -15,17 +15,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-        with:
-          registry: ${{ env.registry }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Building docker image...
-        working-directory: ./ansible
-        run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
-
       - name: Installing packages...
         run: sudo apt install openssh-server
 
@@ -35,8 +24,19 @@ jobs:
           ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" -C "temp key"
           cat "$HOME/.ssh/id_rsa.pub" > $HOME/.ssh.authorized_keys
 
+      - name: Building docker image...
+        working-directory: ./ansible
+        run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
+
       - name: Running Ansible container...
-        run: docker run --rm -v $HOME/.ssh/id_rsa:/etc/ansible/ssh.pem ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
+        run: docker run -e $CI --rm -v $HOME/.ssh/id_rsa:/etc/ansible/ssh.pem ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.registry }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push images to Github Registry
         run: docker push ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
