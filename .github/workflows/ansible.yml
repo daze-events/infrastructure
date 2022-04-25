@@ -18,29 +18,40 @@ jobs:
     # outputs:
     #   cache-hit: ${{ steps.cache-image.outputs.cache-hit }}
     steps:
+      - name: Cache image
+        uses: actions/cache@v3
+        id: check-cache-image
+        with:
+          path: ansible.tar
+          key: ${{ runner.os }}-build-${{ hashFiles('ansible/**') }}
+
       - name: Check out repository code
+        if: steps.check-cache-image.outputs.cache-hit != 'true'
         uses: actions/checkout@v3
 
       - name: Building docker image...
+        if: steps.check-cache-image.outputs.cache-hit != 'true'
         working-directory: ./ansible
         run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
 
       - name: Save image to tar
+        if: steps.check-cache-image.outputs.cache-hit != 'true'
         run: docker save ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev -o ansible.tar
 
       - name: Cache image
+        if: steps.check-cache-image.outputs.cache-hit != 'true'
         uses: actions/cache@v3
-        id: cache-image
+        id: make-cache-image
         with:
           path: ansible.tar
-          key: ${{ runner.os }}-build-${{ hashFiles('ansible/Dockerfile') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('ansible/**') }}
 
   test:
     name: Test Ansible playbook
     needs: build
     runs-on: ubuntu-20.04
     steps:
-      - name: Cache image
+      - name: Get cached image
         uses: actions/cache@v3
         id: cache-image
         with:
@@ -69,7 +80,7 @@ jobs:
     permissions:
       packages: write
     steps:
-      - name: Cache image
+      - name: Get cached image
         uses: actions/cache@v3
         id: cache-image
         with:
