@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       contents: read
-    outputs:
-      cache-hit: ${{ steps.cache-image.outputs.cache-hit }}
+    # outputs:
+    #   cache-hit: ${{ steps.cache-image.outputs.cache-hit }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -40,8 +40,14 @@ jobs:
     needs: build
     runs-on: ubuntu-20.04
     steps:
+      - name: Cache image
+        uses: actions/cache@v3
+        id: cache-image
+        with:
+          path: ansible.tar
+          key: ${{ runner.os }}-build-${{ hashFiles('ansible/Dockerfile') }}
+
       - name: Load Docker image
-        if: needs.build.outputs.cache-image != 'true'
         run: docker load --input ansible.tar
 
       - name: Installing packages...
@@ -63,8 +69,14 @@ jobs:
     permissions:
       packages: write
     steps:
+      - name: Cache image
+        uses: actions/cache@v3
+        id: cache-image
+        with:
+          path: ansible.tar
+          key: ${{ runner.os }}-build-${{ hashFiles('ansible/Dockerfile') }}
+
       - name: Load Docker image
-        if: needs.build.outputs.cache-image != 'true'
         run: docker load --input ansible.tar
 
       - name: Log in to the Container registry
