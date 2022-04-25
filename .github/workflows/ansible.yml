@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       contents: read
+    outputs:
+      cache-hit: ${{ steps.cache-image.outputs.cache-hit }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -26,25 +28,21 @@ jobs:
       - name: Save image to tar
         run: docker save ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev -o ansible.tar
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Cache image
+        uses: actions/cache@v3
+        id: cache-image
         with:
-          name: ansible
           path: ansible.tar
+          key: ${{ runner.os }}-build-${{ hashFiles('ansible/Dockerfile') }}
 
   test:
     name: Test Ansible playbook
     needs: build
     runs-on: ubuntu-20.04
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: ansible
-          path: /tmp
-
       - name: Load Docker image
-        run: docker load --input /tmp/ansible.tar
+        if: jobs.build.outputs.cache-image != 'true'
+        run: docker load --input ansible.tar
 
       - name: Installing packages...
         run: sudo apt-get -qq install openssh-server -y
@@ -65,14 +63,9 @@ jobs:
     permissions:
       packages: write
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: ansible
-          path: /tmp
-
       - name: Load Docker image
-        run: docker load --input /tmp/ansible.tar
+        if: jobs.build.outputs.cache-image != 'true'
+        run: docker load --input ansible.tar
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
