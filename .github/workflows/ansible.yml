@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Load Docker image
-        if: jobs.build.outputs.cache-image != 'true'
+        if: needs.build.outputs.cache-image != 'true'
         run: docker load --input ansible.tar
 
       - name: Installing packages...
@@ -64,7 +64,7 @@ jobs:
       packages: write
     steps:
       - name: Load Docker image
-        if: jobs.build.outputs.cache-image != 'true'
+        if: needs.build.outputs.cache-image != 'true'
         run: docker load --input ansible.tar
 
       - name: Log in to the Container registry
