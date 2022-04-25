@@ -56,7 +56,7 @@ jobs:
         id: cache-image
         with:
           path: ansible.tar
-          key: ${{ runner.os }}-build-${{ hashFiles('ansible/Dockerfile') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('ansible/**') }}
 
       - name: Load Docker image
         run: docker load --input ansible.tar
@@ -85,7 +85,7 @@ jobs:
         id: cache-image
         with:
           path: ansible.tar
-          key: ${{ runner.os }}-build-${{ hashFiles('ansible/Dockerfile') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('ansible/**') }}
 
       - name: Load Docker image
         run: docker load --input ansible.tar
