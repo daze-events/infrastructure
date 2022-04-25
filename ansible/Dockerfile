@@ -1,25 +1,26 @@
-FROM python:buster
+FROM python:alpine
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y openssh-client && \
-    apt-get install -y --no-install-recommends apt-utils && \
-    apt-get install -y jq vim less
-
-RUN pip3 install --quiet --upgrade pip && \
-    pip3 install --quiet --upgrade virtualenv && \
-    pip3 install --quiet ansible && \
-    pip3 install --quiet awscli
-
-# Install aws-cli
-# RUN curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip" && \
-#     unzip -qq "/tmp/awscliv2.zip" -d "/tmp" && \
-#     /tmp/aws/install && \
-#     rm -rf "/tmp/aws*"
-
-# Install SOPS
-RUN curl -qsL "https://github.com/mozilla/sops/releases/download/v3.7.2/sops_3.7.2_amd64.deb" -o /tmp/sops.deb && \
-    dpkg -i /tmp/sops.deb
+RUN apk --no-cache --quiet add \
+    # Install system packages
+    openssh-client \
+    jq \
+    wget \
+    # Install system packages reqired for Ansible compilation
+    gcc \
+    musl-dev \
+    libffi-dev && \
+    # Install pip packages
+    pip install --no-cache-dir --quiet --upgrade pip && \
+    pip install --no-cache-dir --quiet ansible awscli && \
+    pip cache purge && \
+    # Install SOPS package
+    wget -qO /usr/bin/sops https://github.com/mozilla/sops/releases/download/v3.7.2/sops-v3.7.2.linux && chmod u+x /usr/bin/sops && \
+    # Remove useless packages
+    apk --quiet del \
+    gcc \
+    musl-dev \
+    libffi-dev \
+    wget
 
 # Copy playbooks over into the container
 COPY . /etc/ansible/
