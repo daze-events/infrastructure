@@ -1,6 +1,6 @@
 terraform {
   # source = "git::git@github.com:daze-events/infrastructure.git//modules/ec2/single-server?ref=v0.5.0"
-  source = "${get_path_to_repo_root()}/modules/ec2/single-server?ref=v0.5.0"
+  source = "${get_path_to_repo_root()}/terraform/modules/ec2/single-server?ref=v0.5.0"
 }
 
 locals {

@@ -1,6 +1,6 @@
 terraform {
   # source = "git::git@github.com:daze-events/infrastructure.git//modules/kms/master-key?ref=v0.5.0"
-  source = "${get_path_to_repo_root()}/modules/kms/master-key"
+  source = "${get_path_to_repo_root()}/terraform/modules/kms/master-key"
 }
 
 locals {
