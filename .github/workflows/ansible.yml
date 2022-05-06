@@ -30,11 +30,11 @@ jobs:
       - name: Building docker image...
         if: steps.check-cache-image.outputs.cache-hit != 'true'
         working-directory: ./ansible
-        run: docker build . -t ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
+        run: docker build . -t ${{ env.registry }}/${{ github.event.repository.name }}/${{ env.app }}:dev
 
       - name: Save image to tar
         if: steps.check-cache-image.outputs.cache-hit != 'true'
-        run: docker save ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev -o ansible.tar
+        run: docker save ${{ env.registry }}/${{ github.event.repository.name }}/${{ env.app }}:dev -o ansible.tar
 
       - name: Cache image
         if: steps.check-cache-image.outputs.cache-hit != 'true'
@@ -69,7 +69,7 @@ jobs:
           cat "$HOME/.ssh/id_rsa.pub" > $HOME/.ssh/authorized_keys
 
       - name: Running Ansible container...
-        run: docker run -e CI --rm -v $HOME/.ssh/id_rsa:/etc/ansible/ssh.pem ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev -u $USER -vvv
+        run: docker run -e CI --rm -v $HOME/.ssh/id_rsa:/etc/ansible/ssh.pem ${{ env.registry }}/${{ github.event.repository.name }}/${{ env.app }}:dev -u $USER -vvv
 
   push:
     needs: test
@@ -100,5 +100,5 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Push images to Github Registry
-        run: docker push ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
+      - name: Push images to Registry
+        run: docker push ${{ env.registry }}/${{ github.event.repository.name }}/${{ env.app }}:dev
