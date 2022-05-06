@@ -49,6 +49,10 @@ jobs:
     needs: build
     runs-on: ubuntu-20.04
     steps:
+      - name: Check out repository code
+        if: steps.check-cache-image.outputs.cache-hit != 'true'
+        uses: actions/checkout@v3
+
       - name: Get cached image
         uses: actions/cache@v3
         id: cache-image
