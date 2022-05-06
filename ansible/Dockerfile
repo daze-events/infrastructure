@@ -8,7 +8,7 @@ RUN apk --no-cache --quiet add \
     # Install system packages reqired for Ansible compilation
     gcc \
     musl-dev \
-    libffi-dev && \
+    libffi-dev \
     bash && \
     # Install pip packages
     pip install --no-cache-dir --quiet --upgrade pip && \
