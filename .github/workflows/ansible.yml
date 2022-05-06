@@ -73,7 +73,7 @@ jobs:
 
   push:
     needs: test
-    name: Push to ${{ github.repository }}
+    name: Push to Registry
     runs-on: ubuntu-20.04
     permissions:
       packages: write

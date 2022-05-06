@@ -9,6 +9,7 @@ RUN apk --no-cache --quiet add \
     gcc \
     musl-dev \
     libffi-dev && \
+    bash && \
     # Install pip packages
     pip install --no-cache-dir --quiet --upgrade pip && \
     pip install --no-cache-dir --quiet ansible awscli && \
@@ -20,6 +21,7 @@ RUN apk --no-cache --quiet add \
     gcc \
     musl-dev \
     libffi-dev \
+    bash \
     wget
 
 # Copy playbooks over into the container
