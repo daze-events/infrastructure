@@ -1,0 +1,11 @@
+---
+- name: Unzipping awscli archive...
+  unarchive:
+    remote_src: true
+    src: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    dest: /tmp/awscliv2.zip
+
+- name: Installing awscli...
+  command: /tmp/aws/install
+  args:
+    creates: /usr/local/bin/aws

@@ -14,6 +14,7 @@
       - jq
       - curl
       - wget
+      - python3-pip
       - tmux
       - htop
       - tree

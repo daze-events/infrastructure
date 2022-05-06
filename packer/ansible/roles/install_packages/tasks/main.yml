@@ -9,6 +9,11 @@
     - include_tasks: install_zsh.yml
 
 - become: true
+  become_user: "{{ target_user }}"
+  block:
+    - include_tasks: install_awscli.yml
+
+- become: true
   block:
     - include_tasks: install_bat.yml
 
