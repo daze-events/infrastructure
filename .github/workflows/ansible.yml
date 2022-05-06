@@ -77,6 +77,8 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       packages: write
+      id-token: write
+      contents: read
     steps:
       - name: Get cached image
         uses: actions/cache@v3
