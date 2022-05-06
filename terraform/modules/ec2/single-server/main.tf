@@ -61,3 +61,9 @@ resource "aws_iam_role_policy" "additional" {
   role        = module.single_server.iam_role_id
   policy      = element(var.additional_iam_policies, count.index)
 }
+
+resource "aws_iam_role_policy" "main" {
+  name_prefix = "${var.name}-main"
+  role        = module.single_server.iam_role_id
+  policy      = data.aws_iam_policy_document.main.json
+}
