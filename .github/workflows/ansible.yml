@@ -6,7 +6,7 @@ on:
       - "ansible/**"
       - ".github/workflows/ansible.yml"
 env:
-  registry: ghcr.io
+  registry: 169567906943.dkr.ecr.eu-central-1.amazonaws.com
   app: ansible
 
 jobs:
@@ -15,8 +15,6 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       contents: read
-    # outputs:
-    #   cache-hit: ${{ steps.cache-image.outputs.cache-hit }}
     steps:
       - name: Check out repository code
         if: steps.check-cache-image.outputs.cache-hit != 'true'
@@ -75,7 +73,7 @@ jobs:
 
   push:
     needs: test
-    name: Push to ghcr.io
+    name: Push to ${{ github.repository }}
     runs-on: ubuntu-20.04
     permissions:
       packages: write
@@ -90,12 +88,15 @@ jobs:
       - name: Load Docker image
         run: docker load --input ansible.tar
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          registry: ${{ env.registry }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          role-to-assume: arn:aws:iam::169567906943:role/allow-auto-deploy-from-other-accounts
+          aws-region: eu-central-1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Push images to Github Registry
         run: docker push ${{ env.registry }}/${{ github.repository }}/${{ env.app }}:dev
