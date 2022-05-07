@@ -7,10 +7,12 @@ on:
       - ".github/workflows/packer.yml"
 jobs:
   build-image:
+    permissions:
+      id-token: write
+      contents: read
+
     name: Build AMI
     runs-on: ubuntu-20.04
-    permissions:
-      contents: read
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
