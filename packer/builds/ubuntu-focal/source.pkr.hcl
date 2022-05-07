@@ -53,9 +53,9 @@ source "amazon-ebs" "ubuntu" {
 
   user_data = templatefile("./files/userdata.tpl", { ansible_ssh_user = var.ansible_ssh_user })
 
-  ssh_username         = "ansible"
-  ssh_keypair_name     = "shared-build-packer"
-  ssh_private_key_file = pathexpand("~/.ssh/ssh_daze_events")
+  ssh_username = "ansible"
+  # ssh_keypair_name     = "shared-build-packer"
+  # ssh_private_key_file = pathexpand("~/.ssh/ssh_daze_events")
 
   tags = merge({
     Environment = var.env
