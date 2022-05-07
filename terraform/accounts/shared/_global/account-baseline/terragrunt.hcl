@@ -58,8 +58,8 @@ inputs = {
   }
 
   auto_deploy_permissions = [
-    "ecr:*",
-    "ec2:*",
+
+    "*",
   ]
 
   # A list of account root ARNs that should be able to assume the auto deploy role.
