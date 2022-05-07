@@ -11,6 +11,7 @@ set -eo pipefail
     aws ecr get-login-password --region "${AWS_REGION}" | docker login --username AWS --password-stdin "${AWS_REGISTRY_ADDRESS}"
 
     ssh-keygen -t rsa -b 4096 -C "daze-events" -f /tmp/daze-events -N ""
+
     cat /tmp/daze-events.pub > /home/ansible/.ssh/authorized_keys
 
     docker run --rm -v /tmp/daze-events:/etc/ansible/ssh.pem "${AWS_REGISTRY_ADDRESS}/${AWS_REPO_NAME}:${AWS_IMAGE_TAG}"

@@ -58,6 +58,7 @@ inputs = {
   }
 
   auto_deploy_permissions = [
+
     "*",
   ]
 
