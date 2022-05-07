@@ -2,6 +2,8 @@
 name: Packer codebase
 on:
   push:
+    branches:
+      - main
     paths:
       - "packer/**"
       - ".github/workflows/packer.yml"

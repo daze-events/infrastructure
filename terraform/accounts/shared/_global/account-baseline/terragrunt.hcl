@@ -54,7 +54,7 @@ inputs = {
   enable_github_actions_access = true
 
   allow_auto_deploy_from_github_actions_for_sources = {
-    "daze-events/infrastructure" = ["*"]
+    "daze-events/infrastructure" = ["main"]
   }
 
   auto_deploy_permissions = [

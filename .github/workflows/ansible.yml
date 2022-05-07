@@ -2,6 +2,8 @@
 name: Ansible codebase
 on:
   push:
+    branches:
+      - main
     paths:
       - "ansible/**"
       - ".github/workflows/ansible.yml"
