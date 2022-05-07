@@ -54,7 +54,8 @@ inputs = {
   enable_github_actions_access = true
 
   allow_auto_deploy_from_github_actions_for_sources = {
-    "daze-events/infrastructure" = ["main"]
+    "daze-events/infrastructure" = ["main"],
+    "daze-events/infrastructure" = ["dev"],
   }
 
   auto_deploy_permissions = [
@@ -110,7 +111,6 @@ inputs = {
     "ec2:StopInstances",
     "ec2:TerminateInstances",
   ]
-  #############################
 
   # A list of account root ARNs that should be able to assume the auto deploy role.
   # allow_auto_deploy_from_other_account_arns = [
