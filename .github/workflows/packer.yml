@@ -1,0 +1,38 @@
+---
+name: Packer codebase
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "packer/**"
+      - ".github/workflows/packer.yml"
+jobs:
+  build-image:
+    permissions:
+      id-token: write
+      contents: read
+
+    name: Build AMI
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::169567906943:role/allow-auto-deploy-from-other-accounts
+          aws-region: eu-central-1
+
+      - name: Install Packer
+        run: |
+          curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+          sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          sudo apt-get update && sudo apt-get install packer
+
+      - name: Install Ansible
+        run: pip3 install ansible -qq --no-input
+
+      - name: Run Packer
+        run: ./packer/dev.sh

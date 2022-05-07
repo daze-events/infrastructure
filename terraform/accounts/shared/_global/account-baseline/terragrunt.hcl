@@ -54,10 +54,12 @@ inputs = {
   enable_github_actions_access = true
 
   allow_auto_deploy_from_github_actions_for_sources = {
-    "daze-events/infrastructure" = ["main"]
+    "daze-events/infrastructure" = ["main"],
+    "daze-events/infrastructure" = ["dev"],
   }
 
   auto_deploy_permissions = [
+    # Permissions to interact with registry
     "ecr:GetAuthorizationToken",
     "ecr:BatchCheckLayerAvailability",
     "ecr:GetDownloadUrlForLayer",
@@ -74,8 +76,41 @@ inputs = {
     "ecr:UploadLayerPart",
     "ecr:CompleteLayerUpload",
     "ecr:PutImage",
+    # Permissions used by Packer
+    "ec2:AttachVolume",
+    "ec2:AuthorizeSecurityGroupIngress",
+    "ec2:CopyImage",
+    "ec2:CreateImage",
+    "ec2:CreateKeypair",
+    "ec2:CreateSecurityGroup",
+    "ec2:CreateSnapshot",
+    "ec2:CreateTags",
+    "ec2:CreateVolume",
+    "ec2:DeleteKeyPair",
+    "ec2:DeleteSecurityGroup",
+    "ec2:DeleteSnapshot",
+    "ec2:DeleteVolume",
+    "ec2:DeregisterImage",
+    "ec2:DescribeImageAttribute",
+    "ec2:DescribeImages",
+    "ec2:DescribeInstances",
+    "ec2:DescribeInstanceStatus",
+    "ec2:DescribeRegions",
+    "ec2:DescribeSecurityGroups",
+    "ec2:DescribeSnapshots",
+    "ec2:DescribeSubnets",
+    "ec2:DescribeTags",
+    "ec2:DescribeVolumes",
+    "ec2:DetachVolume",
+    "ec2:GetPasswordData",
+    "ec2:ModifyImageAttribute",
+    "ec2:ModifyInstanceAttribute",
+    "ec2:ModifySnapshotAttribute",
+    "ec2:RegisterImage",
+    "ec2:RunInstances",
+    "ec2:StopInstances",
+    "ec2:TerminateInstances",
   ]
-  #############################
 
   # A list of account root ARNs that should be able to assume the auto deploy role.
   # allow_auto_deploy_from_other_account_arns = [
