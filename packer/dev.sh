@@ -6,6 +6,8 @@
 #
 # ./dev.sh -var=create_ami=false -debug -var=ansible_debug=true
 
+packer init builds/ubuntu-focal
+
 packer build "$@" \
             -var-file vars/dev/env.pkrvars.hcl \
             -var-file vars/dev/ubuntu-focal.pkrvars.hcl \

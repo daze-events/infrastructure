@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
     paths:
       - "ansible/**"
       - ".github/workflows/ansible.yml"

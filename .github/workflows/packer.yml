@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
     paths:
       - "packer/**"
       - ".github/workflows/packer.yml"
@@ -35,4 +36,5 @@ jobs:
         run: pip3 install ansible -qq --no-input
 
       - name: Run Packer
-        run: ./packer/dev.sh
+        working-directory: packer
+        run: ./dev.sh
