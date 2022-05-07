@@ -30,4 +30,4 @@ DEFAULT_USER="ubuntu"
     userdel -r "$${DEFAULT_USER}"
     rm -rf "/home/$${DEFAULT_USER:-ubuntu}"
 
-} &>> /var/log/userdata.log
+} &>> /var/log/packer.log

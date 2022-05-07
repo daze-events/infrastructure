@@ -37,6 +37,7 @@ inputs = {
   instance_type        = "t3a.micro"
   vpc_id               = dependency.vpc.outputs.vpc_id
   subnet_id            = dependency.vpc.outputs.public_subnet_ids[0]
+  user_data            = file("./user_data/main.sh")
   additional_iam_policies = [
     dependency.kms.outputs.cmk_decrypt_policy_json,
     dependency.kms.outputs.cmk_encrypt_policy_json

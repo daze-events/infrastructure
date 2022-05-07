@@ -50,12 +50,39 @@ inputs = {
   allow_dev_access_from_other_account_arns       = [local.security_account_root_arn]
   allow_full_access_from_other_account_arns      = [local.security_account_root_arn]
 
+  ### GITHUB ACTIONS ACCESS ###
+  enable_github_actions_access = true
+
+  allow_auto_deploy_from_github_actions_for_sources = {
+    "daze-events/infrastructure" = ["main"]
+  }
+
+  auto_deploy_permissions = [
+    "ecr:GetAuthorizationToken",
+    "ecr:BatchCheckLayerAvailability",
+    "ecr:GetDownloadUrlForLayer",
+    "ecr:GetRepositoryPolicy",
+    "ecr:DescribeRepositories",
+    "ecr:ListImages",
+    "ecr:DescribeImages",
+    "ecr:BatchGetImage",
+    "ecr:GetLifecyclePolicy",
+    "ecr:GetLifecyclePolicyPreview",
+    "ecr:ListTagsForResource",
+    "ecr:DescribeImageScanFindings",
+    "ecr:InitiateLayerUpload",
+    "ecr:UploadLayerPart",
+    "ecr:CompleteLayerUpload",
+    "ecr:PutImage",
+  ]
+  #############################
+
   # A list of account root ARNs that should be able to assume the auto deploy role.
   # allow_auto_deploy_from_other_account_arns = [
   #   # External CI/CD systems may use an IAM user in the security account to perform deployments.
   #   local.security_account_root_arn,
 
   #   # The shared-services account contains automation and infrastructure tools, such as CI/CD systems.
-  #   "arn:aws:iam::${local.accounts.shared}:root",
+  #   # "arn:aws:iam::${local.accounts.shared}:root",
   # ]
 }
