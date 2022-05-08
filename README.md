@@ -33,7 +33,7 @@ List of features to implement in the short-to-medium term:
 
 For more info about where we store container images, refer to [this Confluence document](https://daze-events.atlassian.net/l/c/sq707EBu).
 
-## 5. 🤖 Technologies Stack
+## 5. 🤖 Technology Stack
 
 Here's a list of technologies we use:
 
