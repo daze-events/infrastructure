@@ -8,7 +8,7 @@ Automation code for infrastructure 🏗️ and application 📦 package deployme
 - [2. :octocat: Github Actions Status](#2-octocat-github-actions-status)
 - [3. 🗺️ Roadmap](#3-️-roadmap)
 - [4. 🗄️ Container Image Registry](#4-️-container-image-registry)
-- [Technologies Stack](#technologies-stack)
+- [5. 🤖 Technologies Stack](#5--technologies-stack)
 
 ## 2. :octocat: Github Actions Status
 
@@ -33,7 +33,7 @@ List of features to implement in the short-to-medium term:
 
 For more info about where we store container iages, refer to [this Confluence document](https://daze-events.atlassian.net/l/c/sq707EBu).
 
-## Technologies Stack
+## 5. 🤖 Technologies Stack
 
 Here's a list of technologies we use:
 
