@@ -1,6 +1,6 @@
 # 🏗️ Infrastructure
 
-Automation code for deploying infrastructure components and applications
+Automation code for infrastructure 🏗️ and application 📦 package deployment on AWS. 
 
 ## 1. 🗃️ Table of Contents
 
