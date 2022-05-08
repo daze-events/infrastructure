@@ -1,6 +1,5 @@
 ---
 - name: Configures local server and deploys application
   hosts: all
-  become: true
   tasks:
     - include_tasks: tasks/install_postgres/main.yml

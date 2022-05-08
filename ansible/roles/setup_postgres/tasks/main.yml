@@ -1,0 +1,8 @@
+---
+- name: Including setup_postgres tasks...
+  include_tasks: "{{ setup_postgres_tasks }}.yml"
+  loop:
+    - install
+    - configure
+  loop_control:
+    loop_var: setup_postgres_tasks

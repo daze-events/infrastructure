@@ -1,0 +1,13 @@
+---
+- name: Changing postgresql.conf to allow all addresses...
+  become: true
+  lineinfile:
+    path: /etc/postgresql/12/main/postgresql.conf
+    regexp: '^listen_addresses ='
+    line: "listen_addresses = '*'"
+
+- name: Changing pg_ident.conf...
+  become: true
+  lineinfile:
+    path: /etc/postgresql/12/main/pg_ident.conf
+    line: "host all all 0.0.0.0/0 md5"
